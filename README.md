@@ -1,2 +1,2 @@
 # protobuffs
-protobuffer files for Aartum
+Protobuffer files for Aartum. 
