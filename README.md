@@ -1,2 +1,2 @@
 # protobuffs
-protobuffer files for Aartum
+This repository contains the protobuffer files for Aartum.
