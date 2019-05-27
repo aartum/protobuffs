@@ -5,8 +5,8 @@ package aartum_protobuffs;
 message coin {
   required string id = 1;
   required int32 value = 2;
-  optional string ownerID = 3;
-  optional string chainID = 4;
+  required string ownerID = 3;
+  required string chainID = 4;
 }
 
 message project {
@@ -24,8 +24,8 @@ message project {
 message creditCertificate {
   required string projectID = 1;
   required string dateIssued = 2;
-  optional string outcomeRealised = 3;
-  optional int32 creditsEarned = 4;
+  required string outcomeRealised = 3;
+  required int32 creditsEarned = 4;
 }
 
 message evaluation {
