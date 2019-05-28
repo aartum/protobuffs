@@ -21,6 +21,7 @@ message project {
 }
 
 
+
 message creditCertificate {
   required string projectID = 1;
   required string dateIssued = 2;
@@ -91,6 +92,7 @@ message vtPricePerCredit {
   required vote vote = 1;
   required int32 AARTperCredit = 2;
 }
+
 
 
 enum smartContractTypes {
