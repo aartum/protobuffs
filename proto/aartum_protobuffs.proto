@@ -1,0 +1,226 @@
+syntax = "proto2";
+
+
+package aartum_protobuffs;
+
+
+message coin {
+  required string id = 1;
+  required int32 value = 2;
+  required string ownerID = 3;
+  required string chainID = 4;
+}
+
+message project {
+  required string id = 1;
+  required int32 name = 2;
+  optional string description = 3;
+  optional string ownerID = 4;
+  optional string dateRegistered = 5;
+  optional string startDate = 6;
+  optional string endDate = 7;
+  optional int32 outcomeTargets = 8;
+}
+
+
+
+message creditCertificate {
+  required string projectID = 1;
+  required string dateIssued = 2;
+  required string outcomeRealised = 3;
+  required int32 creditsEarned = 4;
+}
+
+message evaluation {
+  required string aspect = 1;
+  required int32 score = 2;
+  optional string additionalInfo = 3;
+}
+
+enum sdgs {
+	NO_POVERTY = 1;
+	ZERO_HUNGER = 2;
+	GOOD_HEALTH_AND_WELL_BEING = 3;
+	QUALITY_EDUCATION = 4;
+	GENDER_EQUALITY = 5;
+	CLEAN_WATER_AND_SANITATION = 6;
+	AFFORDABLE_AND_CLEAN_ENERGY = 7;
+	DECENT_WORK_AND_ECONOMIC_GROWTH = 8;
+	INDUSTRY_INNOVATION_AND_INFRASTRUCTURE = 9;
+	REDUCED_INEQUALITIES = 10;
+	SUSTAINABLE_CITIES_AND_COMMUNITIES = 11;
+	RESPONSIBLE_PRODUCTION_AND_CONSUMPTION = 12;
+	CLIMATE_ACTION = 13;
+	LIFE_BELOW_WATER = 14;
+	LIFE_ON_LAND = 15;
+	PEACE_JUSTICE_AND_STRONG_INSTITUTIONS = 16;
+	PARTNERSHIPS_FOR_THE_GOALS = 17;
+}
+
+message outcome {
+  required sdgs sdg = 1;
+  required string id = 2;
+  optional string description = 3;
+  optional string methodology = 4;
+}
+
+message methodology {
+  required string id = 1;
+  required int32 criteria = 2;
+}
+
+message wallet {
+  required string id = 1;
+  required string userID = 2;
+  repeated string coins = 3;
+}
+
+message participant {
+  required string id = 1;
+  required string name = 2;
+}
+
+enum voteTypes {
+	AART_PER_CRED = 0;
+}
+
+message vote {
+  required voteTypes type = 1 [default = AART_PER_CRED];
+  required string voterID = 2;
+  optional string smartContractID = 3;
+}
+
+message vtPricePerCredit {
+  required vote vote = 1;
+  required int32 AARTperCredit = 2;
+}
+
+
+
+enum smartContractTypes {
+	ISSUE_CERTIFICATE_CT = 2;
+	ISSUE_COIN_CT = 3;
+}
+
+message smartContract {
+  required string id = 1;
+  required smartContractTypes type = 2;
+}
+
+message smrtCntrIssueCert {
+  required smartContract smartContract = 1;
+  required string outcomeID = 2;
+  optional string methodologyID = 3;
+  optional int32 nCredits = 4;
+}
+
+message smrtCntrIssueCoin {
+  required smartContract smartContract = 1;
+  required int32 nVotesReq = 2;
+  optional string txIDcertIssuance = 3;
+}
+
+
+enum transactionTypes {
+	ISSUE_COIN = 1;
+	SPLIT_COIN = 2;
+	MERGE_COINS = 3;
+	TRANSFER_COIN = 4;
+	RETIRE_COIN = 5;
+	REGISTER_PROJ = 6;
+	CAPTURE_DATA = 7;
+	SUBMIT_EVALUATION = 8;
+	ISSUE_CERTIFICATE = 9;
+	OPEN_CHAIN = 10;
+	CLOSE_CHAIN = 11;
+	SUBMIT_VOTE = 12;
+	ADD_SMART_CONTRACT = 13;
+	CLOSE_SMART_CONTRACT = 14;
+}
+
+message transaction {
+  required string id = 1;
+  required transactionTypes type = 2;
+  optional int32 hook = 3;
+}
+
+enum chainType {
+	PROJECT_DATA = 2;
+	TRADING = 3;
+}
+
+message txOpenChain {
+  required transaction transaction = 1;
+  required string chainID = 2;
+  optional chainType chainType = 3;
+}
+
+message txCloseChain {
+  required transaction transaction = 1;
+}
+
+message txRegisterProj {
+  required transaction transaction = 1;
+  required project details = 2;
+}
+
+message txCaptureData {
+  required transaction transaction = 1;
+  required string data = 2;
+}
+
+message txSubmitEval {
+  required transaction transaction = 1;
+  required string evaluatorID = 2;
+  repeated evaluation evaluation = 3;
+  optional string additionalInfo = 4;
+}
+
+message txIssueCert {
+  required transaction transaction = 1;
+  required creditCertificate certificate = 2;
+}
+
+message txIssueCoin {
+  required transaction transaction = 1;
+  required string txIDissuance = 2;
+  optional coin coin = 3;
+}
+
+message txSplitCoin {
+  required transaction transaction = 1;
+  required string destroyedCoinID = 2;
+  repeated coin newCoins = 3;
+}
+
+message txMergeCoins {
+  required transaction transaction = 1;
+  repeated string destroyedCoinIDs = 2;
+  repeated coin newCoin = 3;
+}
+
+message txTransferCoin {
+  required transaction transaction = 1;
+  repeated string destroyedCoinID = 2;
+  repeated coin newCoin = 3;
+}
+
+message txRetireCoin {
+  required transaction transaction = 1;
+  repeated coin coin = 2;
+}
+
+message txSubmitVote {
+  required transaction transaction = 1;
+  repeated vote vote = 2;
+}
+
+message txAddSmartContract {
+  required transaction transaction = 1;
+  repeated smartContract contract = 2;
+}
+
+message txCloseSmartContract {
+  required transaction transaction = 1;
+  repeated string smartContractID = 2;
+}
