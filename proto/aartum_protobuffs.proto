@@ -1,6 +1,8 @@
 syntax = "proto2";
 
+
 package aartum_protobuffs;
+
 
 message coin {
   required string id = 1;
